@@ -1,8 +1,8 @@
 const express = require('express')  //taking express server
 const app =express()                 //take it has object
-const PORT = process.env.PORT || 5000 
+const PORT = 5000 
 const mongoose = require('mongoose')           
-const {MONGOURI} = require('./config/keys')
+const {MONGOURI} = require('./keys')
 
 mongoose.connect(MONGOURI,{
     useNewUrlParser:true,
@@ -30,13 +30,6 @@ app.use(require('./routes/post'))
 app.use(require('./routes/user'))
 
 
-if(process.env.NODE_ENV=="production"){
-    app.use(express.static('client/build'))
-    const path = require('path')
-    app.get("*",(req,res)=>{
-        res.sendFile(path.resolve(__dirname,'client','build','index.html'))   //client request we will index.html where everything is present
-    })
-}
 
 
 
